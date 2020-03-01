@@ -6,6 +6,9 @@ tap "homebrew/core"
 brew "readline"
 brew "coreutils"
 brew "fzf"
+brew "zsh"
+brew "zsh-completions"
+
 brew "node"
 brew "nvm"
 brew "pkg-config"
@@ -19,6 +22,8 @@ cask "iterm2"
 brew "mas"
 cask "google-chrome"
 cask "notion"
+cask "docker"
+
 mas "1Password", id: 443987910
 mas "Alfred", id: 405843582
 mas "feedly", id: 865500966
