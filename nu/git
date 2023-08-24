@@ -17,3 +17,7 @@ export def d [] {
   export def c [msg: string] {
     git commit -m $msg
   }
+
+ export def p [] {
+  git push origin "$(git_current_branch)"
+}

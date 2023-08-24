@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+# Git scripts for working with jira
+
+require 'json'
+
+DEFAULT_ACTION = "open"
+VALID_ACTIONS=%w(show start open list copy)
+action = ARGV[0]
+if action
+  return puts("Invalid action, valid actions are: #{VALID_ACTIONS.join(',')}; got: #{action}") unless VALID_ACTIONS.include?(action)
+else
+  action = DEFAULT_ACTION
+end
+def user
+  @user ||= `git config jira.user`.sub("\n",'')
+end
+
+def token
+  @token ||= `git config jira.token`.sub("\n",'')
+end
+
+def url
+  @url ||= `git config jira.url`.sub("\n",'')
+end
+
+def ticket_types
+  @ticket_types = `git config jira.ticket-types`.sub("\n",'').split("|")
+end
+
+def ticket_regex
+  Regexp.new(ticket_types.map{|e| "(#{e}\\-\\d*)"}.join("|"))
+end
+
+def start
+  ticket = ARGV[1]
+  curl = "curl -s -u \"#{user}:#{token}\" -X GET https://#{url}/rest/api/2/issue/#{ticket}"
+  jira_ticket = JSON.parse(`#{curl}`)
+  jira_fields = jira_ticket['fields']
+  type = jira_fields['issuetype']['name'].downcase
+  description = jira_fields["summary"][0..50].split.join('_').downcase
+  branch_description = [type, user, description, ticket].map(&:split).join('/')
+  branch_name = branch_description
+  puts "(COPIED TO CLIPBOARD)"
+  puts branch_name
+  `printf #{branch_name} | pbcopy`
+end
+
+
+def list
+  jql = "assignee=#{user} and status!=Delivered order by status asc"
+  curl = "curl -s -u \"#{user}:#{token}\" -X GET https://#{url}/rest/api/2/search?jql=#{jql}"
+  jira_tickets = JSON.parse(`#{curl}`)
+  blahs = jira_tickets['issues'].sort_by{|e| e["fields"]["status"]["name"]}
+  .reject do |ticket|
+    ticket["fields"]["status"]["name"] == 'Delivered'
+  end.map do |ticket|
+    "#{ticket["key"]} #{ticket["fields"]["status"]["name"]} https://#{url}/browse/#{ticket["key"]}"
+  end
+  blahs.each{|e| puts e }
+end
+
+def ticket_url
+  branch_name = `git name-rev --name-only HEAD`
+  ticket_name = ticket_regex.match(branch_name)[0].upcase
+  "https://#{url}/browse/#{ticket_name}"
+end
+
+def show
+  puts ticket_url
+end
+
+def copy
+  `echo #{ticket_url} | pbcopy`
+end
+
+def open
+  `open #{ticket_url}`
+end
+
+send(action)
