@@ -1,0 +1,19 @@
+
+export def l [] {
+  git log --oneline --decorate --graph
+  }
+export def s [] {
+  git status
+  }
+export def d [] {
+  git diff
+  }
+
+
+  export def a [] {
+    git add .
+  }
+
+  export def c [msg: string] {
+    git commit -m $msg
+  }

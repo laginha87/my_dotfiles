@@ -1,5 +1,11 @@
-`brew bundle`
+puts "Updating xcode"
 `xcode-select —-install`
-`sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
-`cp .zshrc ~/`
-`curl -sSL https://get.rvm.io | bash -s stable --ruby`
+
+puts "Running brew bundle"
+`brew bundle`
+
+puts "installing kitty"
+`curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin`
+
+puts "Install scriptkit"
+`open https://www.scriptkit.com/`
