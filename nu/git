@@ -19,5 +19,10 @@ export def d [] {
   }
 
  export def p [] {
-  git push origin "$(git_current_branch)"
+  let b = current-branch
+  git push origin $b
+}
+
+def current-branch [] {
+  git branch --show-current | lines | first
 }
