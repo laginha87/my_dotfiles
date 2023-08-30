@@ -1,4 +1,18 @@
+export def help_git [] {
+  print ```
+  g - git checkout
+  l - git log
+  s - git status
+  d - git diff
+  a - git add
+  c - git commit
+  p - git push
+  ```
+}
 
+export def g [branch: string] {
+  git checkout $branch
+}
 export def l [] {
   git log --oneline --decorate --graph
   }
