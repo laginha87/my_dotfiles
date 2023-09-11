@@ -1,5 +1,8 @@
-cp config/kitty.conf ~/.config/kitty/kitty.conf
+def get-it [ blah: string] {
+ which $blah | get path | first
+}
 
+["# vim:fileencoding=utf-8:foldmethod=marker", "include ~/Documents/code/my_dotfiles/kitty/kitty.conf", $"shell (get-it nu)", $"editor (get-it code)"] | str join "\n" | save --force ~/.config/kitty/kitty.conf
 
 let env_file = open $nu.env-path | lines
 
