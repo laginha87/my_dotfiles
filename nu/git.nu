@@ -16,6 +16,15 @@ def git_main_branch [] {
 # (sorted alphabetically)
 #
 
+def git_add_commit_push [...msg:string] {
+    let message = $msg | str join " "
+    git add .
+    git commit --message $message
+    git push --set-upstream origin (git_current_branch)
+}
+
+export alias gacp = git_add_commit_push
+
 export alias ga = git add
 export alias gaa = git add --all
 export alias gapa = git add --patch
