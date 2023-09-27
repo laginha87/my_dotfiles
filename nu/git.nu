@@ -23,6 +23,14 @@ def git_add_commit_push [...msg:string] {
     git push --set-upstream origin (git_current_branch)
 }
 
+def git_add_commit_ticket_push [...msg:string] {
+    let message = $msg | str join " "
+    git add .
+    git ticket $message
+    git push --set-upstream origin (git_current_branch)
+}
+
+export alias gtc = git_add_commit_ticket_push
 export alias gacp = git_add_commit_push
 
 export alias ga = git add
