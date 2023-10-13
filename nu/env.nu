@@ -1,11 +1,13 @@
-export use ~/Documents/code/my_dotfiles/nu/git.nu *
+source ./env_config.nu
+export use ./git.nu *
 
-export use ~/Documents/code/my_dotfiles/nu/kitt.nu *
-export use ~/Documents/code/my_dotfiles/nu/cab.nu *
+export use ./kitt.nu *
+export use ./cab.nu *
 
-export use ~/Documents/code/my_dotfiles/nu/cheat_search.nu *
+export use ./cheat_search.nu *
 
-export use ~/Documents/code/my_dotfiles/nu/hxconfig.nu *
+export use ./hxconfig.nu *
+
 
 
 export-env { $env.ZELLIJ_CONFIG_DIR = $"($env.HOME)/Documents/code/my_dotfiles/zellij" }

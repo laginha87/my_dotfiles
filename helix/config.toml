@@ -4,6 +4,7 @@ theme = "catppuccin_mocha"
 line-number = "relative"
 bufferline = "multiple"
 
+idle-timeout = 0 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
