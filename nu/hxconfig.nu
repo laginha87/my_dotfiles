@@ -1,1 +1,0 @@
-export alias hx = hx --config ~/Documents/code/my_dotfiles/helix/config.toml

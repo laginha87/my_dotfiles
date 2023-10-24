@@ -6,8 +6,3 @@ export use ./cab.nu *
 
 export use ./cheat_search.nu *
 
-export use ./hxconfig.nu *
-
-
-
-export-env { $env.ZELLIJ_CONFIG_DIR = $"($env.HOME)/Documents/code/my_dotfiles/zellij" }
