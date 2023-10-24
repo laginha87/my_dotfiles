@@ -209,7 +209,7 @@ plugins {
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
-// default_shell "fish"
+default_shell "nu"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //
@@ -248,7 +248,7 @@ plugins {
 //         white 255 255 255
 //     }
 // }
- theme "catppuccin_mocha"
+ theme "catppuccin-mocha"
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
@@ -319,7 +319,7 @@ plugins {
 
 // The folder in which Zellij will look for layouts
 //
-// layout_dir "/path/to/my/layout_dir"
+// layout_dir "~/Documents/code/my_dotfiles/zellij/layouts"
 
 // The folder in which Zellij will look for themes
 //

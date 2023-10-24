@@ -48,10 +48,10 @@ export def k [
     $extra =  "--copy /Users/filipecorreia/Documents/code/jobandtalent/black-ops-support-snippets/ignored/code.rb"
     $extra2 =  "-- -r /tmp/code.rb"
     }
-  if ( $service == "workforce") {
-    $extra =  "--copy /Users/filipecorreia/Documents/code/jobandtalent/black-ops-support-snippets/ignored/workforce.rb"
-    $extra2 =  "-- -r /tmp/workforce.rb"
-  }
+  # if ( $service == "workforce") {
+  #   $extra =  "--copy /Users/filipecorreia/Documents/code/jobandtalent/black-ops-support-snippets/ignored/workforce.rb"
+  #   $extra2 =  "-- -r /tmp/workforce.rb"
+  # }
 
   let ex = $"JT_DISABLE_READONLY_DB_PROTECTION=true kitt k8s shell --service ($service) ($extra) -e (if $production {"p"} else  {"s"}) (if $memory { '--memory-limit 8192' }) ($command) ($extra2)"
   print $ex

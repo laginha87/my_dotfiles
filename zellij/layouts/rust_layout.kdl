@@ -1,0 +1,34 @@
+layout {
+	tab_template name="strider_tab" {
+    	pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        pane split_direction="Vertical" {
+            pane size="15%" {
+                // TODO: when we support sending CWD to plugins, this should start in ./zellij-derver
+                plugin location="zellij:strider"
+            }
+            children
+        }
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+	}
+    strider_tab name="Testing" focus=true {
+
+	    pane split_direction="vertical" size="60%" {
+	        pane edit="src/main.rs"
+	        pane edit="Cargo.toml"
+	    }
+	    pane split_direction="vertical" size="40%" {
+	        pane command="cargo" {
+	            args "run"
+	            focus true
+	        }
+	        pane command="cargo" {
+	            args "test"
+	        }
+	    }
+	}
+}
+
