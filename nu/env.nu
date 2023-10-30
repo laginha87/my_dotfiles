@@ -1,4 +1,7 @@
 source ./env_config.nu
+source ./path.nu
+source ./local.nu
+
 export use ./git.nu *
 export use ./aliases/zellij.nu *
 export use ./kitt.nu *
