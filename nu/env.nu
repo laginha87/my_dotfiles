@@ -1,6 +1,6 @@
 source ./env_config.nu
 export use ./git.nu *
-
+export use ./aliases/zellij.nu *
 export use ./kitt.nu *
 export use ./cab.nu *
 
