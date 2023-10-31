@@ -9,3 +9,10 @@ puts "installing kitty"
 
 puts "Install scriptkit"
 `open https://www.scriptkit.com/`
+
+puts "Config nushell"
+# source '~/Documents/code/my_dotfiles/nu/config.nu'
+
+puts "Prepping Starship"
+`mkdir ~/.cache/starship`
+`starship init nu | save -f ~/.cache/starship/init.nu`
