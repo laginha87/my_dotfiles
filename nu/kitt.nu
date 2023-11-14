@@ -37,8 +37,8 @@ def commands [ ] {
 # workforce and transactions have snippet loader code attached
 export def k [
   service: string@services # The service to connect to
-  --production (-p): bool # Connect to production
-  --memory (-m): bool # Create pod with high memory limits
+  --production (-p) # Connect to production
+  --memory (-m) # Create pod with high memory limits
    ...commands: string@commands # Commands to run defaults to rails console
   ] {
   let command = ($commands | default  rails console | str join " ")
@@ -52,7 +52,7 @@ export def k [
     $extra =  "--copy /Users/filipecorreia/Documents/code/jobandtalent/black-ops-support-snippets/ignored/workforce.rb"
     $extra2 =  "-- -r /tmp/workforce.rb"
   }
-
+  
   let ex = $"JT_DISABLE_READONLY_DB_PROTECTION=true kitt k8s shell --service ($service) ($extra) -e (if $production {"p"} else  {"s"}) (if $memory { '--memory-limit 8192' }) ($command) ($extra2)"
   print $ex
   nu -c $ex
