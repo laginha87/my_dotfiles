@@ -4,3 +4,5 @@ export alias zl = zellij
 export alias zn = zellij --session
 # Attach to a zellij session
 export alias za = zellij attach
+
+export alias zr = zellij run --

@@ -5,29 +5,31 @@ def git_current_branch [] {
 def git_main_branch [] {
     git remote show origin
         | lines
-        | str trim
+        | str trim 
         | find --regex 'HEAD .*?[：: ].+'
         | first
         | str replace 'HEAD .*?[：: ](.+)' '$1'
 }
 
-#
-# Aliases
-# (sorted alphabetically)
-#
 
 def git_add_commit_push [...msg:string] {
     let message = $msg | str join " "
     git add .
     git commit --message $message
-    git push --set-upstream origin (git_current_branch)
+    git push
 }
 
 def git_add_commit_ticket_push [...msg:string] {
     let message = $msg | str join " "
-    git add .
     git ticket $message
-    git push --set-upstream origin (git_current_branch)
+    git push
+}
+
+export def git_rebase_master [branch:string = "-"] {
+    git checkout master
+    git pull
+    git checkout $branch
+    git rebase -i master
 }
 
 export alias gtc = git_add_commit_ticket_push
