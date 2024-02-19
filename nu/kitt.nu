@@ -25,6 +25,20 @@ def services [] {
   ["staging" "production"] | each {|| ls -D $"~/Documents/code/jobandtalent/terraform-services/**/($in)"} | flatten  | get name | each { $in | split row "/" | last 2 | first}  | uniq
 }
 
+def staging-services [] {
+  ls -D "~/Documents/code/jobandtalent/*" | get name | path basename
+}
+
+export def deploy-staging [service: string@staging-services, key: string] {
+  cd $"~/Documents/code/jobandtalent/($service)"
+  gf
+  gco staging
+  git reset --hard origin/staging
+  git merge $key
+  gp
+
+}
+
 def presets [ ] {
   open $preset_loc | keys
 }
@@ -65,3 +79,5 @@ export alias kuktransactions = kitt k8s shell  --service transactions --deployme
 export alias kukworkforceP = JT_DISABLE_READONLY_DB_PROTECTION=false kitt k8s shell  --service workforce --deployment http -e p -- rails console
 
 export alias kuktransactions = DISABLE_JT_DISABLE_READONLY_DB_PROTECTION=true kitt k8s shell  --service transactions --deployment http -- rails console
+
+

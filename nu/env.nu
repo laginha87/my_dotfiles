@@ -17,5 +17,5 @@ use ../nu_scripts/custom-completions/npm/npm-completions.nu *
 use ../nu_scripts/custom-completions/just/just-completions.nu *
 use ../nu_scripts/custom-completions/cargo/cargo-completions.nu *
 
-zoxide init nushell | save -f ~/.zoxide.nu
+# zoxide init nushell | save -f ~/.zoxide.nu
 source './image.nu'
