@@ -21,7 +21,7 @@
 
 
 def services [] {
-  ["staging" "production"] | each {|| ls -D $"~/Documents/code/jobandtalent/terraform-services/**/($in)"} | flatten  | get name | each { $in | split row "/" | last 2 | first}  | uniq
+  ["staging" "production"] | each {|| glob $"~/Documents/code/jobandtalent/terraform-services/**/($in)"} | flatten  | each { $in | split row "/" | last 2 | first}  | uniq
 }
 
 def staging-services [] {
@@ -77,6 +77,11 @@ export def k [
   }
   if ($deployment == null) {
     $deployment = "http"
+  }
+
+  if ($command == "/bin/sh") {
+    $extra = ""
+    $extra2 = ""
   }
   
   let ex = $"JT_DISABLE_READONLY_DB_PROTECTION=true kitt k8s shell --service ($service) ($extra) -d ($deployment) -e (if $production {"p"} else  {"s"}) (if $memory { '--memory-limit 8192' }) ($command) ($extra2)"
